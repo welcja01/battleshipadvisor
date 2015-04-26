@@ -100,6 +100,7 @@ public class MainActivity extends Activity {
 		drawableMap.put("unknown", getResources().getDrawable(R.drawable.unknown));
 
 		if (!unsunkLengths.isEmpty()){
+			System.out.println("IM RUNNINGGGGGGGGGGGGGGGA;SLDKF;ASLDKFJAS;DFLKAJS;DFLKAJS;DFLKAJS;DFLKAJSD;FLKJAS;DFLKAJS;DLFJKA;SLDKFJ");
 			char row = chArray[guess.row];
 			highlightGuess(guess.col + 1, row);
 		}
@@ -108,7 +109,9 @@ public class MainActivity extends Activity {
 		setVisible(true);
 		reset();	
 	}
-
+	/**SHOULD I ADD A NEW METHOD THATS RUN FROM A WHILE LOOP, WHICH WILL BE THE PLAY METHOD SO THAT THE
+	 * GAME KEEPS PLAYING UNTIL GAME IS OVER AND ITS RESET?
+	 */
 
 	/**
 	 * Go back to initial guesser state and report all guesses and responses to guesser from the beginning.
@@ -117,7 +120,7 @@ public class MainActivity extends Activity {
 		//set all cell images to unknown by default
 		for (char ch : chArray) {
 			for(int i = 1; i < 11; i++){
-				setImage("unknown", i, ch);
+				setImage("one", i, ch);
 			}
 		}
 
