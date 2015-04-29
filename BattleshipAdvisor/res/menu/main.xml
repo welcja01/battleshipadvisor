@@ -2,7 +2,7 @@
 
     <item
         android:id="@+id/undo"
-        android:title="Undo">
+        android:title="Undo" android:visible="true" android:enabled="true">
     </item>
     <item
         android:id="@+id/new_game"

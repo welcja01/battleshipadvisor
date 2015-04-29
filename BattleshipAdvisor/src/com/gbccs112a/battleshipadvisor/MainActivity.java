@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity{
 
-	private Button missButton, hitButton, sunkButton;
+	private Button missButton, hitButton, sunkButton, menuButton;
 
 	/*
 	 * sets up the buttons
@@ -78,6 +78,42 @@ public class MainActivity extends Activity{
 			}
 		});
 		
+		
+		// this block was created with help from http://stackoverflow.com/questions/21329132/android-custom-dropdown-popup-menu
+		menuButton = (Button) findViewById(R.id.menuButton);
+	    menuButton.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	            //Creating the instance of PopupMenu
+	            PopupMenu popup = new PopupMenu(MainActivity.this, menuButton);
+	            //Inflating the Popup using main menu xml file
+	            popup.getMenuInflater()
+	                .inflate(R.menu.main, popup.getMenu());
+	            //registering popup with OnMenuItemClickListener
+
+	            popup.show(); //showing popup menu
+	            
+	            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+					@Override
+					public boolean onMenuItemClick(MenuItem item) {
+						// if the New Game item was selected, start a new game
+						if (item.getItemId() == (R.id.new_game)) {
+							((BattleshipView) findViewById(R.id.BattleshipView)).newGame();
+							return true;
+						}
+						// if the Undo item was selected, undo the last move
+						else if (item.getItemId() == (R.id.undo)) {
+							((BattleshipView) findViewById(R.id.BattleshipView)).undo();
+							return true;
+						}
+						return false;
+					}
+	            	
+	            });
+	        }
+	          
+	        
+	    }); //closing the setOnClickListener method
+		
 
 
 		setTitle("Battleship Advisor");
@@ -136,6 +172,8 @@ public class MainActivity extends Activity{
 		return true;
 	}
 	
+	
+	// I'm not sure if we need this anymore since the pop-up seems to be working, but it might not hurt to leave it in
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case R.id.new_game:
@@ -150,6 +188,8 @@ public class MainActivity extends Activity{
 	            return false;
 	    }
 	}
+	
+	
 
 
 }
