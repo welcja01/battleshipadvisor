@@ -52,7 +52,10 @@ public class MyBattleshipGuesser implements BattleshipGuesser {
 		hitstory.clear();	
 	}
 
+	
 	@Override
+	
+
 	public Position getGuess() {
 		// clear grid counts
 		gridCount = new int[SIZE][SIZE];

@@ -9,34 +9,30 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/hitButton"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
-        android:layout_weight="1"
-        android:autoText="false"
-        android:text="Menu" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/hitButton"
-        android:layout_marginBottom="50dp" >
-    </View>
-
-    <TableLayout
-        android:id="@+id/RHE"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignTop="@+id/view1"
-        android:layout_marginBottom="50dp"
-        android:padding="5dp" >
-    </TableLayout>
-
-    <TableLayout
+        android:id="@+id/menuButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/RHE"
-        android:layout_alignParentBottom="true" >
+        android:text="Menu" />
+
+    <com.gbccs112a.battleshipadvisor.BattleshipView
+        android:id="@+id/BattleshipView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
+        android:visibility="visible" />
+
+    <TableLayout
+        android:id="@+id/layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="false"
+        android:visibility="visible" >
 
         <TableRow>
 
@@ -53,7 +49,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:autoText="true"
                 android:text="Miss" />
 
             <Button
@@ -61,9 +56,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:autoText="true"
+                android:showAsAction="always"
                 android:text="Sunk" />
         </TableRow>
     </TableLayout>
+
 
 </RelativeLayout>
