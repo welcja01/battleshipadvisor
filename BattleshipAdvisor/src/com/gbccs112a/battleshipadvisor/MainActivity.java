@@ -77,6 +77,7 @@ public class MainActivity extends Activity{
 				
 			}
 		});
+		
 
 
 		setTitle("Battleship Advisor");
@@ -134,7 +135,21 @@ public class MainActivity extends Activity{
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case R.id.new_game:
+	        	// call new game method in BattleshipView.java
+	        	((BattleshipView) findViewById(R.id.BattleshipView)).newGame();
+	            return true;
+	        case R.id.undo:
+	        	// call undo method in BattleshipView.java
+	        	((BattleshipView) findViewById(R.id.BattleshipView)).undo();
+	            return true;
+	        default:
+	            return false;
+	    }
+	}
 
 
 }

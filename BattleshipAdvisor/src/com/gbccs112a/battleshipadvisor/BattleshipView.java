@@ -418,12 +418,23 @@ public class BattleshipView extends View {
 		guess = guesser.getGuess();
 		invalidate();
 	}
+	
+	void newGame(){
+		guessStack.clear();
+		responseStack.clear();
+		reset();
+	}
+	
+	void undo(){
+		if (!guessStack.isEmpty()) {
+			guessStack.pop();
+			responseStack.pop();
+			reset();
+		}
+	}
 
 	//Create Menu Bar
-	// Create undo item
-	// Add items to game menu
-	// Add game menu to menu bar and return
-
+	
 
 
 
