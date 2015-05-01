@@ -1,195 +1,125 @@
 package com.gbccs112a.battleshipadvisor;
 
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface.OnClickListener;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements Runnable{
 
-	private Button missButton, hitButton, sunkButton, menuButton;
+	private static Context context;
 
-	/*
-	 * sets up the buttons
-	 *@author William Czubakowski
-	 * 
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		missButton = (Button) findViewById(R.id.missButton);
-		hitButton = (Button) findViewById(R.id.hitButton);
-		sunkButton = (Button) findViewById(R.id.sunkButton);
+
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		/*
-		sunkButton = (Button) findViewById(R.id.sunkButton);
-		sunkButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				System.out.println("IM RUNNING!!!");
-				//Creating the instance of PopupMenu
-				PopupMenu popup = new PopupMenu(MainActivity.this, sunkButton);
-
-				//Inflating the Popup using xml file
-				popup.getMenuInflater()
-				.inflate(R.menu.popup_menu, popup.getMenu());
-
-				//registering popup with OnMenuItemClickListener
-				popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-					public boolean onMenuItemClick(MenuItem item) {
-						Toast.makeText(
-								MainActivity.this,
-								"You Clicked : " + item.getTitle(),
-								Toast.LENGTH_SHORT
-								).show();
-						return true;
-					}
-				});
-
-				popup.show(); //showing popup menu
-			}
-		}); //closing the setOnClickListener method
-*/
 		findViewById(R.id.missButton).setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				/*//run();
+				MediaPlayer mPlayer2;
+				mPlayer2= MediaPlayer.create(getBaseContext(), R.raw.miss);
+				mPlayer2.start();
+				mPlayer2.release();
+				mPlayer2.reset();
+				mPlayer2.setOnCompletionListener(new OnCompletionListener() {
+					public void onCompletion(MediaPlayer mPlayer2){
+					mPlayer2.reset();
+					mPlayer2.release();
+					mPlayer2 = null;
+					}
+				});*/
+
 				((BattleshipView) findViewById(R.id.BattleshipView)).missButton();
 			}
 		});
 
+
 		findViewById(R.id.hitButton).setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+
+				//run();
 				((BattleshipView) findViewById(R.id.BattleshipView)).hitButton();
 			}
 		});
 
 		findViewById(R.id.sunkButton).setOnClickListener(new View.OnClickListener() {
+
 			public void onClick(View v) {
+				//run();
 				((BattleshipView) findViewById(R.id.BattleshipView)).sunkButton();
-				
-				
 			}
 		});
-		
-		
-		// this block was created with help from http://stackoverflow.com/questions/21329132/android-custom-dropdown-popup-menu
-		menuButton = (Button) findViewById(R.id.menuButton);
-	    menuButton.setOnClickListener(new View.OnClickListener() {
-	        public void onClick(View v) {
-	            //Creating the instance of PopupMenu
-	            PopupMenu popup = new PopupMenu(MainActivity.this, menuButton);
-	            //Inflating the Popup using main menu xml file
-	            popup.getMenuInflater()
-	                .inflate(R.menu.main, popup.getMenu());
-	            //registering popup with OnMenuItemClickListener
 
-	            popup.show(); //showing popup menu
-	            
-	            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
-						// if the New Game item was selected, start a new game
-						if (item.getItemId() == (R.id.new_game)) {
-							((BattleshipView) findViewById(R.id.BattleshipView)).newGame();
-							return true;
-						}
-						// if the Undo item was selected, undo the last move
-						else if (item.getItemId() == (R.id.undo)) {
-							((BattleshipView) findViewById(R.id.BattleshipView)).undo();
-							return true;
-						}
-						return false;
-					}
-	            	
-	            });
-	        }
-	          
-	        
-	    }); //closing the setOnClickListener method
-		
-
-
+		MainActivity.context = getApplicationContext();
 		setTitle("Battleship Advisor");
 		setVisible(true);
 		//new BattleshipAdvisorGUI(new MyBattleshipGuesser());
 	}
-	/*
-	boolean click = true;
-	PopupWindow popUp;
-    LinearLayout layout;
-    TextView tv;
-    LayoutParams params;
-    LinearLayout mainLayout = null;
-    Button but;
-
-	public void showPopup(View v) {
 
 
 
-        popUp = new PopupWindow(this);
-        layout = new LinearLayout(this);
-        mainLayout = new LinearLayout(this);
-        tv = new TextView(this);
-		sunkButton.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                if (click) {
-                    popUp.showAtLocation(mainLayout, Gravity.BOTTOM, 10, 10);
-                    popUp.update(50, 50, 300, 80);
-                    click = false;
-                } else {
-                    popUp.dismiss();
-                    click = true;
-                }
-            }
-
-        });
-
+	public synchronized static Context getAppContext() {
+		return MainActivity.context;
 	}
-	 */
-	public static void popUp(int n){
-		// 1. Instantiate an AlertDialog.Builder with its constructor
-		AlertDialog.Builder builder = new AlertDialog.Builder(null); //TODO CANT HAVE NULL HERE
-		// 2. Chain together various setter methods to set the dialog characteristics
-		builder.setMessage("You've won in " + n + " guesses!")
-		.setTitle("You Win!");
-		// 3. Get the AlertDialog from create()
-		AlertDialog dialog = builder.create();
-		//display the alert dialog
-		dialog.show();
+
+	public static void startSecondActivity(){
+		//define a new Intent for the second Activity
+		Intent intent = new Intent(getAppContext(),SecondActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		//start the second Activity
+		getAppContext().startActivity(intent);
 	}
+
+	@Override
+	public void run() {
+		/*
+		try {
+			mPlayer2.wait(mPlayer2.getDuration());
+		}
+		catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			mPlayer2.release();
+		}
+		 */
+		//mPlayer2.release();
+	}
+
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	
-	// I'm not sure if we need this anymore since the pop-up seems to be working, but it might not hurt to leave it in
+
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case R.id.new_game:
-	        	// call new game method in BattleshipView.java
-	        	((BattleshipView) findViewById(R.id.BattleshipView)).newGame();
-	            return true;
-	        case R.id.undo:
-	        	// call undo method in BattleshipView.java
-	        	((BattleshipView) findViewById(R.id.BattleshipView)).undo();
-	            return true;
-	        default:
-	            return false;
-	    }
+		switch (item.getItemId()) {
+		case R.id.new_game:
+			// call new game method in BattleshipView.java
+			((BattleshipView) findViewById(R.id.BattleshipView)).newGame();
+			return true;
+		case R.id.undo:
+			// call undo method in BattleshipView.java
+			((BattleshipView) findViewById(R.id.BattleshipView)).undo();
+			return true;
+		default:
+			return false;
+		}
 	}
-	
-	
+
+
 
 
 }
